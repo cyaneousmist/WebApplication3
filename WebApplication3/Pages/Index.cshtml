@@ -1,10 +1,24 @@
 ﻿@page
+@inject IHttpContextAccessor contxt;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Bookworms Online</h1>
+    
+@if (User.Identity.IsAuthenticated)
+    {
+        <p class="lead">Hello, @contxt.HttpContext.Session.GetString("FirstName")</p>
+        // display user info
+        <p class="lead">Email: @contxt.HttpContext.Session.GetString("Email")</p>
+        <p class="lead">Phone: @contxt.HttpContext.Session.GetString("PhoneNumber")</p>
+
+
+    }
+    else
+    {
+        <p class="lead">Please log in to access the site</p>
+    }
 </div>
